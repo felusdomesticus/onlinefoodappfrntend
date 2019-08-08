@@ -2,13 +2,6 @@ import PropTypes from "prop-types";
 import React, {Component} from "react";
 
 class CounterButton extends Component {
-    constructor() {
-        super();
-        this.state = {
-            counter: 0
-        };
-    }
-
     render() {
         return (
             <div className="counter">
@@ -19,16 +12,10 @@ class CounterButton extends Component {
     }
 
     increment = () => {
-        this.setState({
-            counter: this.state.counter + this.props.by,
-        });
         this.props.incrementMethod(this.props.by);
     };
 
     decrement = () => {
-        this.setState({
-            counter: this.state.counter - this.props.by,
-        });
         this.props.decrementMethod(this.props.by);
     }
 }

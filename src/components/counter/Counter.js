@@ -6,8 +6,7 @@ class Counter extends Component {
     constructor() {
         super();
         this.state = {
-            counter: 0,
-            secondCounter: 100
+            counter: 0
         };
     }
 
