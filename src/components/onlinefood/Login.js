@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, {Component} from 'react';
 import AuthenticationService from "./AuthenticationService";
 
 class Login extends Component {
@@ -56,16 +56,26 @@ class Login extends Component {
     };*/
 
     loginClicked = (event) => {
-        if (this.state.username === 'mesutcan' && this.state.password === '123') {
+        /*if (this.state.username === 'mesutcan' && this.state.password === '123') {
             console.log("SUCCESSFULL");
             this.props.history.push(`/welcome/${this.state.username}`);
             //this.setState({isLoggedIn : true});
-            AuthenticationService.registerSuccessfullLogin(this.state.username,this.state.password);
+            AuthenticationService.registerSuccessfullLogin(this.state.username, this.state.password);
 
         } else {
             this.setState({isLoggedIn: false});
             console.log("FAILED");
-        }
+        }*/
+
+        AuthenticationService.executeBasicAuthentication(this.state.username, this.state.password)
+            .then(response=>{
+                this.props.history.push(`/welcome/${this.state.username}`);
+                AuthenticationService.registerSuccessfullLogin(this.state.username, this.state.password);
+            })
+            .catch(error=> {
+                this.setState({isLoggedIn: false});
+                console.log("FAILED");
+        })
     }
 }
 
