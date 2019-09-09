@@ -67,7 +67,7 @@ class Login extends Component {
             console.log("FAILED");
         }*/
 
-        AuthenticationService.executeBasicAuthentication(this.state.username, this.state.password)
+        /*AuthenticationService.executeBasicAuthentication(this.state.username, this.state.password)
             .then(response=>{
                 this.props.history.push(`/welcome/${this.state.username}`);
                 AuthenticationService.registerSuccessfullLogin(this.state.username, this.state.password);
@@ -75,7 +75,17 @@ class Login extends Component {
             .catch(error=> {
                 this.setState({isLoggedIn: false});
                 console.log("FAILED");
-        })
+        })*/
+
+        AuthenticationService.executeJwtAuthentication(this.state.username, this.state.password)
+            .then(response=>{
+                AuthenticationService.registerSuccessfullLoginJwt(this.state.username, response.data.token);
+                this.props.history.push(`/welcome/${this.state.username}`);
+            })
+            .catch(error=> {
+                this.setState({isLoggedIn: false});
+                console.log("FAILED");
+            })
     }
 }
 
