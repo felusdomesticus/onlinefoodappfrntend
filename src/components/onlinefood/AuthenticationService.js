@@ -20,6 +20,7 @@ class AuthenticationService{
 
     registerSuccessfullLoginJwt(username,token){
         sessionStorage.setItem('authenticatedUser',username);
+        localStorage.setItem('token',token);
         this.setupAxiosInterceptorsJwt(token);
     }
 
@@ -41,12 +42,17 @@ class AuthenticationService{
         })
     }
 
-    setupAxiosInterceptorsJwt(token){
+    setupAxiosInterceptorsJwt = (token) =>{
         axios.interceptors.request.use((config)=>{
             if(this.isUserLoggedIn())
                 config.headers.authorization = this.createJwtAuthentication(token);
             return config;
         })
+    }
+
+    setupAxiosInterceptorsForSavedToken(){
+        if(this.isUserLoggedIn())
+            this.setupAxiosInterceptorsJwt(localStorage.getItem('token'));
     }
 
     createJwtAuthentication(token){

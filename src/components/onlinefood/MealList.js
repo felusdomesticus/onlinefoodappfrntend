@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import MealDataService from "../../api/MealDataService";
+import AuthenticationService from "./AuthenticationService";
 
 class MealList extends Component {
     constructor(props) {
@@ -12,7 +13,8 @@ class MealList extends Component {
                     {code: 'CRB1', name: 'Çorba', price: 6, photo: 'text', detail: 'Süper bi yemek!'},
                     {code: 'PD1', name: 'Pide', price: 19, photo: 'text', detail: 'Süper bi yemek!'}*/
                 ]
-        }
+        };
+        AuthenticationService.setupAxiosInterceptorsForSavedToken();
     }
 
     componentWillUnmount() {
