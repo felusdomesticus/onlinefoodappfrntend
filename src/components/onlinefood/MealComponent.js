@@ -15,6 +15,7 @@ class MealComponent extends Component {
                 price: '',
                 photo: '',
                 detail: '',
+                campaign: '',
                 creationDate: moment(new Date()).format('YYYY-MM-DD')
             },
             action: 'update'
@@ -75,14 +76,19 @@ class MealComponent extends Component {
     };
 
     render() {
-        let {code, name, price, photo, detail, creationDate} = this.state.meal;
+        let {code, name, price, photo, detail, campaign, creationDate} = this.state.meal;
+
+        function setFieldValue(checked) {
+            campaign = checked;
+        }
+
         return (
             <div>
                 <h1>Meal</h1>
                 <div className="container">
                     <Formik onSubmit={this.onSubmit}
                             validate={this.validate}
-                            initialValues={{code, name, price, photo, detail, creationDate}}
+                            initialValues={{code, name, price, photo, detail, campaign, creationDate}}
                             enableReinitialize={true}
                     >
                         {
@@ -115,6 +121,11 @@ class MealComponent extends Component {
                                     <fieldset className="form-group">
                                         <label>Creation Date</label>
                                         <Field className="form-control" type="date" name="creationDate"/>
+                                    </fieldset>
+                                    <fieldset className="form-group">
+                                        <label>Campaign?</label>
+                                        <Field className="form-control" type="checkbox" name="campaign"
+                                               onChange={event => setFieldValue(event.target.checked)} checked={campaign}/>
                                     </fieldset>
                                     <button className="btn btn-success" type="submit">Save</button>
                                 </Form>
